@@ -30,6 +30,22 @@ class DbHandler {
     }
 
 
+    /**
+     * Fetching all menus of a restaurant
+     * 
+     */
+    public function getRestaurantMenus($restaurant_id) {
+        $stmt = $this->conn->prepare("SELECT * from tbl_menus WHERE resto_id = ?");
+        if ($stmt->execute()) {
+            $menus = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            return $menus;
+        } else {
+            return NULL;
+        }
+    }
+
+
 
 
 }
