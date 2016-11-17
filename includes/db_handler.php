@@ -34,10 +34,11 @@ class DbHandler {
      * Fetching all menus of a restaurant
      * 
      */
-    public function getRestaurantMenus($restaurant_id) {
-        $stmt = $this->conn->prepare("SELECT * from tbl_menus WHERE resto_id = ?");
+    public function getRestaurantMenus($resto_id) {
+        $stmt = $this->conn->prepare("SELECT * from tbl_menu WHERE resto_id = ?");
+        $stmt->bind_param('i', $resto_id);
         if ($stmt->execute()) {
-            $menus = $stmt->get_result()->fetch_assoc();
+            $menus = $stmt->get_result();
             $stmt->close();
             return $menus;
         } else {
